@@ -1,0 +1,9 @@
+@startuml Hello world
+actor User #red 
+skinparam Style strictuml
+skinparam 
+ center
+A -> B : Hello   dsd
+A <- B: Hi
+
+@enduml

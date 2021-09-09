@@ -1,0 +1,73 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: 'http://localhost:8080/'
+    description: Generated server url
+paths:
+  /client:
+    post:
+      tags:
+        - bank-client-controller
+      operationId: requestValidateClientInformation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseClientDTO'
+
+        '400':
+          description: BADREQUEST
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+components:
+  schemas:
+    ClientDTO:
+      type: object
+      properties:
+        documentType:
+          type: string
+        documentNumber:
+          type: string
+        name:
+          type: string
+        lastName:
+          type: string
+        documentIssueDate:
+          type: string
+          format: date
+        birthDate:
+          type: string
+          format: date
+        email:
+          type: string
+        cellPhone:
+          type: string
+    ResponseClientDTO:
+      type: object
+      properties:
+        message:
+          type: string
+
+    ResponseError:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+        code:
+          type: string

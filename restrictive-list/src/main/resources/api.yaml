@@ -1,0 +1,135 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: 'http://localhost:8080/'
+    description: Generated server url
+paths:
+  /client:
+    post:
+      tags:
+        - bank-client-controller
+      operationId: requestValidateClientInformation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientDTO'
+        required: true
+
+      parameters:
+        - in: header
+          description: token authorization
+          name: security
+          schema:
+            type: string
+            default: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyOTkxMjQ2MywiaWF0IjoxNjI5ODk0NDYzfQ.gFLhpgyL1kTRFtWK_84eRH5AwBWFTQiacwAR0cmHP8I
+          required: true
+
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseClientDTO'
+
+        '400':
+          description: BAD_REQUEST
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+
+        '401':
+          description: UNAUTHORIZED
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+
+  /authenticate:
+    post:
+      tags:
+        - authenticate-method
+      operationId: createAuthenticationToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationRequest'
+        required: true
+
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseClientDTO'
+
+        '401':
+          description: UNAUTHORIZED
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+
+components:
+  schemas:
+    ClientDTO:
+      type: object
+      properties:
+        documentType:
+          type: string
+        documentNumber:
+          type: string
+        name:
+          type: string
+        lastName:
+          type: string
+        documentIssueDate:
+          type: string
+          format: date
+        birthDate:
+          type: string
+          format: date
+        email:
+          type: string
+        cellPhone:
+          type: string
+    ResponseClientDTO:
+      type: object
+      properties:
+        message:
+          type: string
+
+    ResponseError:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+        code:
+          type: string
+
+    AuthenticationResponse:
+      type: object
+      properties:
+        jwt:
+          type: string
+
+    UnauthorizedError:
+      description: Access token is missing or invalid
+
+    AuthenticationRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string

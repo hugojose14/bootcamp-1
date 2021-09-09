@@ -1,0 +1,8 @@
+.openapi-generator-ignore
+README.md
+pom.xml
+src/main/java/com/bank/scotia/adapters/ApiUtil.java
+src/main/java/com/bank/scotia/adapters/BankClientControllerApi.java
+src/main/java/com/bank/scotia/domain/model/ClientDTO.java
+src/main/java/com/bank/scotia/domain/model/ResponseClientDTO.java
+src/main/java/com/bank/scotia/domain/model/ResponseError.java

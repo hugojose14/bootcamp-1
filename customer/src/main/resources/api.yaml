@@ -1,0 +1,118 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: 'http://localhost:8082/'
+    description: Generated server url
+paths:
+  /customers:
+    post:
+      tags:
+        - customer-save-controller
+      operationId: saveCustomerInformation
+      summary: Save customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/CustomerDTO'
+
+        '400':
+          description: BAD_REQUEST
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+
+    get:
+      tags:
+        - customer-get-controller
+      operationId: getCustomersInformation
+      summary: Get customers
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerDTO'
+
+  /customer/{documentNumber}:
+    parameters:
+      - in: path
+        name: documentNumber
+        description: document number for customer
+        required: true
+        schema:
+          type: string
+
+
+    delete:
+      tags:
+        - customer-delete-controller
+      operationId: deleteCustomerInformation
+      summary: Delete customer by documentNumber
+      responses:
+        '204':
+          description: NO_CONTENT
+        '404':
+          description: NOT_FOUND
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+
+
+components:
+  schemas:
+    CustomerDTO:
+      type: object
+      properties:
+        documentType:
+          type: string
+        documentNumber:
+          type: string
+        name:
+          type: string
+        lastName:
+          type: string
+        documentIssueDate:
+          type: string
+          format: date
+        birthDate:
+          type: string
+          format: date
+        email:
+          type: string
+        cellPhone:
+          type: string
+    ResponseCustomerDTO:
+      type: object
+      properties:
+        message:
+          type: string
+
+    ResponseError:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+            default: 'Ocurrió un error'
+        code:
+          type: string
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet  author="Hugo Pérez"  id="changelog-1.0">
+        <createTable  tableName="client">
+            <column  name="document_number"  type="varchar(50)">
+                <constraints  nullable="true"  primaryKey="true"  unique="true"/>
+            </column>
+
+            <column  name="document_type"  type="varchar(30)">
+                <constraints  nullable="true"   unique="false"/>
+            </column>
+
+            <column  name="name"  type="varchar(50)">
+                <constraints  nullable="true"   unique="false"/>
+            </column>
+
+            <column  name="last_name"  type="varchar(50)">
+                <constraints  nullable="true"    unique="false"/>
+            </column>
+
+            <column  name="document_issue_date"  type="date">
+                <constraints  nullable="true"    unique="false"/>
+            </column>
+
+            <column  name="birth_date"  type="date">
+                <constraints  nullable="true"    unique="false"/>
+            </column>
+
+            <column  name="email"  type="varchar(50)">
+                <constraints  nullable="true"    unique="true"/>
+            </column>
+
+            <column  name="cell_phone"  type="varchar(50)">
+                <constraints  nullable="true"    unique="true"/>
+            </column>
+
+
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

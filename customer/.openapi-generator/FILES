@@ -1,0 +1,10 @@
+.openapi-generator-ignore
+README.md
+pom.xml
+src/main/java/com/scotia/customer/api/ApiUtil.java
+src/main/java/com/scotia/customer/api/CustomerDeleteControllerApi.java
+src/main/java/com/scotia/customer/api/CustomerGetControllerApi.java
+src/main/java/com/scotia/customer/api/CustomerSaveControllerApi.java
+src/main/java/com/scotia/customer/model/CustomerDTO.java
+src/main/java/com/scotia/customer/model/ResponseCustomerDTO.java
+src/main/java/com/scotia/customer/model/ResponseError.java

@@ -1,0 +1,243 @@
+openapi: 3.0.1
+info:
+  title: API BFF-Web
+  version: v0
+servers:
+  - url: 'http://localhost:8083/'
+    description: BFF-server-web
+paths:
+  /bff/crm:
+    post:
+      tags:
+        - bff-customer-save-controller
+      operationId: saveCustomerInformation
+      summary: Save customer
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/CustomerDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/CustomerDTO'
+
+        '400':
+          description: BAD_REQUEST
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+
+    get:
+      tags:
+        - bff-customer-get-controller
+      operationId: bffGetCustomersInformation
+      summary: Get customers
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerDTO'
+
+  /bff/crm/{documentNumber}:
+    parameters:
+      - in: path
+        name: documentNumber
+        description: document number for customer
+        required: true
+        schema:
+          type: string
+
+    delete:
+      tags:
+        - bff-customer-delete-controller
+      operationId: bffDeleteCustomerInformation
+      summary: Delete customer by documentNumber
+      responses:
+        '204':
+          description: NO_CONTENT
+        '404':
+          description: NOT_FOUND
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+
+
+
+  /bff/restrictive-list:
+    parameters:
+      - in: header
+        description: token authorization
+        name: security
+        schema:
+          type: string
+          default: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyOTkxMjQ2MywiaWF0IjoxNjI5ODk0NDYzfQ.gFLhpgyL1kTRFtWK_84eRH5AwBWFTQiacwAR0cmHP8I
+        required: true
+
+    post:
+      tags:
+        - bff-restrictive-list-controller
+      operationId: bffRestrictiveListValidateClient
+      summary: Save customer
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/ClientRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ClientDTO'
+
+        '400':
+          description: BAD_REQUEST
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+
+        '401':
+          description: UNAUTHORIZED
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+
+  /bff/restrictive-list/authenticate:
+    post:
+      tags:
+        - bff-restrictive-list-authenticate-method
+      operationId: bffRestrictiveListGenerateAuthentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationRequest'
+        required: true
+
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/AuthenticationResponse'
+
+        '401':
+          description: UNAUTHORIZED
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/ResponseError'
+
+components:
+  schemas:
+    CustomerDTO:
+      type: object
+      properties:
+        documentType:
+          type: string
+        documentNumber:
+          type: string
+        name:
+          type: string
+        lastName:
+          type: string
+        documentIssueDate:
+          type: string
+          format: date
+        birthDate:
+          type: string
+          format: date
+        email:
+          type: string
+        cellPhone:
+          type: string
+
+    ResponseError:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+            default: 'Ocurrió un error'
+        code:
+          type: string
+
+    ClientDTO:
+      type: object
+      properties:
+        documentType:
+          type: string
+        documentNumber:
+          type: string
+        name:
+          type: string
+        lastName:
+          type: string
+        documentIssueDate:
+          type: string
+          format: date
+        birthDate:
+          type: string
+          format: date
+        email:
+          type: string
+        cellPhone:
+          type: string
+
+    ClientRequest:
+      type: object
+      properties:
+        documentType:
+          type: string
+        documentNumber:
+          type: string
+        name:
+          type: string
+        lastName:
+          type: string
+        documentIssueDate:
+          type: string
+          format: date
+        birthDate:
+          type: string
+          format: date
+        email:
+          type: string
+        cellPhone:
+          type: string
+
+    AuthenticationResponse:
+      type: object
+      properties:
+        jwt:
+          type: string
+
+
+    AuthenticationRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+

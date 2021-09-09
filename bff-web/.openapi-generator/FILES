@@ -1,0 +1,15 @@
+.openapi-generator-ignore
+README.md
+pom.xml
+src/main/java/com/bff/application/api/ApiUtil.java
+src/main/java/com/bff/application/api/BffCustomerDeleteControllerApi.java
+src/main/java/com/bff/application/api/BffCustomerGetControllerApi.java
+src/main/java/com/bff/application/api/BffCustomerSaveControllerApi.java
+src/main/java/com/bff/application/api/BffRestrictiveListAuthenticateMethodApi.java
+src/main/java/com/bff/application/api/BffRestrictiveListControllerApi.java
+src/main/java/com/bff/domain/data/AuthenticationRequest.java
+src/main/java/com/bff/domain/data/AuthenticationResponse.java
+src/main/java/com/bff/domain/data/ClientDTO.java
+src/main/java/com/bff/domain/data/ClientRequest.java
+src/main/java/com/bff/domain/data/CustomerDTO.java
+src/main/java/com/bff/domain/data/ResponseError.java
